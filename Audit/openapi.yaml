@@ -1,0 +1,132 @@
+openapi: 3.0.0
+servers: []
+info:
+  description: This is a simple API
+  version: "1.0.0"
+  title: Fitness API
+  contact:
+    email: kkaczkowska@my.bcit.ca
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: devices
+    description: Smart devices used by fitness people
+    
+paths:
+  /dailySteps:
+    get:
+      tags:
+      - devices
+      summary:  gets daily steps readings
+      operationId: app.get_daily_steps
+      description: Gets daily steps readings added after a timestamp
+      parameters:
+         - name: index
+           in: query
+           description: Gets the daily steps at the index in the event store
+           schema:
+             type: integer
+             example: 100
+      responses:
+        '200':
+          description: Successfully returned a list of daily steps events
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/daily_Steps'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+
+        
+        
+  /caloriesBurned:  
+    get:
+      tags:
+        - devices
+      summary: gets calories burned readings
+      operationId: app.get_calories_burned
+      description: Gets calories burned readings added after a timestamp
+      parameters:
+        - name: index
+          in: query
+          description: Gets the calories burned at the index in the event store
+          schema:
+            type: integer
+            example: 100
+      responses:
+        '200':
+          description: Successfully returned a list of calories burned events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/calories_Burned'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string  
+        
+        
+components:
+  schemas:
+    daily_Steps:
+      type: object
+      required:
+        - client_name
+        - age
+        - daily_steps
+        - timestamp
+      properties:
+        client_name:
+          type: string
+          example: 'Kashya Kaczkowska'
+        age:
+          type: integer
+          example: 21
+        daily_steps:
+          type: integer
+          example: 3045
+        timestamp:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
+          
+          
+    calories_Burned:
+      type: object
+      required:
+        - client_name
+        - age
+        - calories_burned
+        - timestamp
+      properties:
+        client_name:
+          type: string
+          example: 'Kashya Kaczkowska'
+        age:
+          type: integer
+          example: 21
+        calories_burned:
+          type: integer
+          example: 320
+        timestamp:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z

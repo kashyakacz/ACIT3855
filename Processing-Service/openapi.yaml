@@ -1,0 +1,65 @@
+openapi: 3.0.0
+servers:
+ - url: 'https://localhost:8080'
+info:
+  description: This is a simple API
+  version: "1.0.0"
+  title: Fitness API
+  contact:
+    email: kkaczkowska@my.bcit.ca
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: devices
+    description: Smart devices used by fitness people
+    
+paths:
+  /stats:
+    get:
+      tags:
+      - devices
+      summary: get the stats
+      operationId: app.get_stats
+      description: get daily steps and calories burned statistics
+      responses:
+        '200':
+          description: returnes list of stats
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/statReadings'
+        '400':
+          description: 'invalid request'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  schemas:
+    statReadings:
+      type: object
+      required:
+        - min_daily_steps
+        - min_calories_burned
+        - max_daily_steps
+        - max_calories_burned
+      properties:
+        min_daily_steps:
+          type: integer
+          example: 2540
+        min_calories_burned:
+          type: integer
+          example: 258
+        max_daily_steps:
+          type: integer
+          example: 6759
+        max_calories_burned:
+          type: integer
+          example: 430

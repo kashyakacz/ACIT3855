@@ -1,0 +1,103 @@
+openapi: 3.0.0
+servers:
+ - url: 'https://localhost:8080'
+info:
+  description: This is a simple API
+  version: "1.0.0"
+  title: Fitness API
+  contact:
+    email: kkaczkowska@my.bcit.ca
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: devices
+    description: Smart devices used by fitness people
+    
+paths:
+  /dailySteps:
+    post:
+      tags:
+        - devices
+      summary: reports the amount of daily steps
+      operationId: app.report_daily_steps
+      description: Adds a clients steps for the day the the system. 
+      responses:
+        '201':
+          description: item created
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/daily_Steps'
+        description: Daily steps to add
+        
+        
+  /caloriesBurned:
+    post:
+      tags:
+        - devices
+      summary: reports the amount of calories burned
+      operationId: app.report_calories_burned
+      description: Adds a clients burned calories for the day to the system
+      responses:
+        '201':
+          description: item created
+        '400':
+          description: 'invalid input, object invalid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/calories_Burned'
+        description: calories burned to add     
+        
+        
+components:
+  schemas:
+    daily_Steps:
+      type: object
+      required:
+        - client_name
+        - age
+        - daily_steps
+        - timestamp
+      properties:
+        client_name:
+          type: string
+          example: 'Kashya Kaczkowska'
+        age:
+          type: integer
+          example: 21
+        daily_steps:
+          type: integer
+          example: 3045
+        timestamp:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
+          
+          
+    calories_Burned:
+      type: object
+      required:
+        - client_name
+        - age
+        - calories_burned
+        - timestamp
+      properties:
+        client_name:
+          type: string
+          example: 'Kashya Kaczkowska'
+        age:
+          type: integer
+          example: 21
+        calories_burned:
+          type: integer
+          example: 320
+        timestamp:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
