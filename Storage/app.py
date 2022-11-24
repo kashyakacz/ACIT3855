@@ -147,6 +147,8 @@ def process_messages():
       trace_id = msg['payload']['trace_id']
       logger.info(f'Stored event daily steps event request with a trace id of {str(trace_id)}')
 
+      return NoContent, 201
+
     elif msg["type"] == "report_calories_burned":
       session = DB_SESSION()
 
@@ -162,6 +164,7 @@ def process_messages():
       session.close()
       trace_id = msg['payload']['trace_id']
       logger.info(f'Stored event calories burned event request with a trace id of {str(trace_id)}')
+      return NoContent, 201
 
     consumer.commit_offsets()
 
