@@ -114,6 +114,45 @@ def get_calories_burned_readings(timestamp):
   
   return caloriesB, 200
 
+def daily_steps(msg):
+  session = DB_SESSION()
+
+  ds = DailySteps(msg['payload']['client_name'],
+                    msg['payload']['age'],
+                    msg['payload']['daily_steps'],
+                    msg['payload']['timestamp'],
+                    msg['payload']['trace_id'])
+
+  session.add(ds)
+
+  session.commit()
+  session.close()
+
+  trace_id = msg['payload']['trace_id']
+  logger.info(f'Stored event daily steps event request with a trace id of {str(trace_id)}')
+
+  return NoContent, 201
+
+def calories_burned(msg):
+  session = DB_SESSION()
+
+  cb = CaloriesBurned(msg['payload']['client_name'],
+                    msg['payload']['age'],
+                    msg['payload']['calories_burned'],
+                    msg['payload']['timestamp'],                   
+                    msg['payload']['trace_id'])
+
+  session.add(cb)
+
+  session.commit()
+  session.close()
+
+  trace_id = msg['payload']['trace_id']
+  logger.info(f'Stored event calories burned event request with a trace id of {str(trace_id)}')
+
+  return NoContent, 201
+
+
 def process_messages():
   """Process event messages"""
 
@@ -132,39 +171,11 @@ def process_messages():
     payload = msg["payload"]
     
     if msg["type"] == "report_daily_steps":
-      session = DB_SESSION()
-
-      ds = DailySteps(msg['payload']['client_name'],
-                        msg['payload']['age'],
-                        msg['payload']['daily_steps'],
-                        msg['payload']['timestamp'],
-                        msg['payload']['trace_id'])
-
-      session.add(ds)
-      session.commit()
-      session.close()
-
-      trace_id = msg['payload']['trace_id']
-      logger.info(f'Stored event daily steps event request with a trace id of {str(trace_id)}')
-
-      return NoContent, 201
+      daily_steps(msg)
 
     elif msg["type"] == "report_calories_burned":
-      session = DB_SESSION()
+      calories_burned(msg)
 
-      cb = CaloriesBurned(msg['payload']['client_name'],
-                        msg['payload']['age'],
-                        msg['payload']['calories_burned'],
-                        msg['payload']['timestamp'],                   
-                        msg['payload']['trace_id'])
-
-      session.add(cb)
-
-      session.commit()
-      session.close()
-      trace_id = msg['payload']['trace_id']
-      logger.info(f'Stored event calories burned event request with a trace id of {str(trace_id)}')
-      return NoContent, 201
 
     consumer.commit_offsets()
 
