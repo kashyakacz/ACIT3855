@@ -8,7 +8,7 @@ export default function AppStats() {
 
 	const getStats = () => {
 	
-        fetch(`http://acit3855-lab6.westus3.cloudapp.azure.com:8100/stats`)
+        fetch(`http://acit3855-lab6.westus3.cloudapp.azure.com:8100/stats/`)
             .then(res => res.json())
             .then((result)=>{
 				console.log("Received Stats")
@@ -43,16 +43,16 @@ export default function AppStats() {
 							<td># HR: {stats['num_hr_readings']}</td>
 						</tr> */}
 						<tr>
-							<td colspan="2">Max BP Systolic: {stats['min_daily_steps']}</td>
+							<td colspan="2">Min Daily Steps: {stats['min_daily_steps']}</td>
 						</tr>
 						<tr>
-							<td colspan="2">Max BR Diastolic: {stats['max_daily_steps']}</td>
+							<td colspan="2">Max Daily Steps: {stats['max_daily_steps']}</td>
 						</tr>
 						<tr>
-							<td colspan="2">Max HR: {stats['min_calories_burned']}</td>
+							<td colspan="2">Min Calories Burned: {stats['min_calories_burned']}</td>
 						</tr>
 						<tr>
-							<td colspan="2">Max HR: {stats['max_calories_burned']}</td>
+							<td colspan="2">Min Calories Burned: {stats['max_calories_burned']}</td>
 						</tr>
 					</tbody>
                 </table>
