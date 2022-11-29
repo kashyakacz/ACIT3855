@@ -1,8 +1,8 @@
 version: 1
 dailySteps:
-  url: http://localhost:8090/dailySteps
+  url: http://localacit3855-lab6.westus3.cloudapp.azure.comhost:8090/dailySteps
 caloriesBurned:
-  url: http://localhost:8090/caloriesBurned
+  url: http://acit3855-lab6.westus3.cloudapp.azure.com:8090/caloriesBurned
 events:
   hostname: acit3855-lab6.westus3.cloudapp.azure.com
   port: 9092
