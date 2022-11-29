@@ -50,6 +50,7 @@ components:
         - min_calories_burned
         - max_daily_steps
         - max_calories_burned
+        - last_updated
       properties:
         min_daily_steps:
           type: integer
@@ -63,3 +64,7 @@ components:
         max_calories_burned:
           type: integer
           example: 430
+        last_updated:
+          type: string
+          format: date-time
+          example: 2016-08-29T09:12:33.001Z
