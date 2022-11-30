@@ -22,19 +22,19 @@ def get_daily_steps(index):
     logger.info("Retrieving daily steps reading at index %d" % index)
 
     try:
-        count = 0
         for msg in consumer:
             msg_str = msg.value.decode('utf-8')
             msg = json.loads(msg_str)
        
-            if msg['type'] == "report_daily_steps" and count == index:
-                print(msg)
+            if msg['type'] == "report_daily_steps":
+                #return(msg)
+                payload = msg
                 
-                return msg, 200
-            elif msg['type'] != "report_daily_steps":
-                continue
-            else: 
-                count += 1
+            elif msg['type'] != "report_calories_burned":
+                pass
+
+        return payload, 200
+    
     except:
         logger.error("No more messages found")
     logger.error("Could not find daily steps reading at index %d" % index)
@@ -51,19 +51,18 @@ def get_calories_burned(index):
     logger.info("Retrieving calories burned reading at index %d" % index)
 
     try:
-        count = 0
         for msg in consumer:
             msg_str = msg.value.decode('utf-8')
             msg = json.loads(msg_str)
        
-            if msg['type'] == "report_calories_burned" and count == index:
-                print(msg)
+            if msg['type'] == "report_calories_burned":
+                payload = msg
                 
                 return msg, 200
-            elif msg['type'] != "report_calories_burned":
-                continue
-            else: 
-                count += 1
+            elif msg['type'] != "report_daily_steps":
+                pass
+        return payload, 200
+
     except:
         logger.error("No more messages found")
     logger.error("Could not find calories burned reading at index %d" % index)

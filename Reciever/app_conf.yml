@@ -1,6 +1,6 @@
 version: 1
 dailySteps:
-  url: http://localacit3855-lab6.westus3.cloudapp.azure.comhost:8090/dailySteps
+  url: http://acit3855-lab6.westus3.cloudapp.azure.com:8090/dailySteps
 caloriesBurned:
   url: http://acit3855-lab6.westus3.cloudapp.azure.com:8090/caloriesBurned
 events:
