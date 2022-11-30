@@ -4,6 +4,6 @@ datastore:
 scheduler:
   period_sec: 5
 dailySteps:
-  url: http://localhost:8090/dailySteps?timestamp=
+  url: http://acit3855-lab6.westus3.cloudapp.azure.com:8090/dailySteps?timestamp=
 caloriesBurned:
-  url: http://localhost:8090/caloriesBurned?timestamp=
+  url: http://acit3855-lab6.westus3.cloudapp.azure.com:8090/caloriesBurned?timestamp=
