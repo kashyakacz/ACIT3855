@@ -13,15 +13,11 @@ with open('app_conf.yml', 'r') as f:
 
 logger = logging.getLogger('basicLogger')
 
-hostname = "%s:%d" % (app_config["events"]["hostname"], app_config["events"]["port"])
-client = KafkaClient(hosts=hostname)
-topic = client.topics[str.encode(app_config["events"]["topic"])]
-
 def get_daily_steps(index):
     """Get daily steps in history"""
-    # hostname = "%s:%d" % (app_config["events"]["hostname"], app_config["events"]["port"])
-    # client = KafkaClient(hosts=hostname)
-    # topic = client.topics[str.encode(app_config["events"]["topic"])]
+    hostname = "%s:%d" % (app_config["events"]["hostname"], app_config["events"]["port"])
+    client = KafkaClient(hosts=hostname)
+    topic = client.topics[str.encode(app_config["events"]["topic"])]
 
     consumer = topic.get_simple_consumer(reset_offset_on_start=True, consumer_timeout_ms=1000)
     logger.info("Retrieving daily steps reading at index %d" % index)
@@ -52,9 +48,9 @@ def get_daily_steps(index):
 
 def get_calories_burned(index):
     """Get calories burned in history"""
-    # hostname = "%s:%d" % (app_config["events"]["hostname"], app_config["events"]["port"])
-    # client = KafkaClient(hosts=hostname)
-    # topic = client.topics[str.encode(app_config["events"]["topic"])]
+    hostname = "%s:%d" % (app_config["events"]["hostname"], app_config["events"]["port"])
+    client = KafkaClient(hosts=hostname)
+    topic = client.topics[str.encode(app_config["events"]["topic"])]
 
     consumer = topic.get_simple_consumer(reset_offset_on_start=True, consumer_timeout_ms=1000)
     logger.info("Retrieving calories burned reading at index %d" % index)
