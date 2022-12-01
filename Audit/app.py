@@ -28,13 +28,13 @@ def get_daily_steps(index):
             msg = json.loads(msg_str)
        
             if msg['type'] == "report_daily_steps":
-                #return(msg)
                 payload = msg
                 
             elif msg['type'] != "report_calories_burned":
                 pass
 
         return payload, 200
+        
     except SocketDisconnectedError as e:
         logger.error(e)
         consumer.stop()
@@ -63,10 +63,11 @@ def get_calories_burned(index):
             if msg['type'] == "report_calories_burned":
                 payload = msg
                 
-                return msg, 200
             elif msg['type'] != "report_daily_steps":
                 pass
+
         return payload, 200
+
     except SocketDisconnectedError as e:
         logger.error(e)
         consumer.stop()
