@@ -6,6 +6,7 @@ import yaml
 import logging
 import logging.config
 from flask_cors import CORS, cross_origin
+from pykafka.exceptions import SocketDisconnectedError
 
 with open('app_conf.yml', 'r') as f:
   app_config = yaml.safe_load(f.read())
@@ -34,7 +35,11 @@ def get_daily_steps(index):
                 pass
 
         return payload, 200
-    
+    except SocketDisconnectedError as e:
+        logger.error(e)
+        consumer.stop()
+        consumer.start()
+
     except:
         logger.error("No more messages found")
     logger.error("Could not find daily steps reading at index %d" % index)
