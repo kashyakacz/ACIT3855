@@ -74,4 +74,4 @@ app.app.config['CORS_HEADERS']='Content-Type'
 app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
 
 if __name__ == "__main__":
-     app.run(port=9080)
+     app.run(port=8110)
