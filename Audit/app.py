@@ -67,6 +67,10 @@ def get_calories_burned(index):
             elif msg['type'] != "report_daily_steps":
                 pass
         return payload, 200
+    except SocketDisconnectedError as e:
+        logger.error(e)
+        consumer.stop()
+        consumer.start()
 
     except:
         logger.error("No more messages found")
