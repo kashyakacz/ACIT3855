@@ -28,7 +28,7 @@ services:
             - /home/azureuser/kafka:/kafka/kafka-logs
         depends_on:
             - "zookeeper"
-            
+
     db:
         image: mysql:5.7
         restart: always
@@ -61,8 +61,8 @@ services:
             - "receiver" 
             - "storage" 
             - "processing" 
-            - "audit_log" 
-            - "dashboard-ui" 
+            - "audit" 
+            - "dashboard" 
          # Connects the port 80 of the nginx container to localhost:80 or localhost 
         ports: 
             - "80:80" 
