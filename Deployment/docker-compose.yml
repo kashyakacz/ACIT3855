@@ -28,6 +28,7 @@ services:
             - /home/azureuser/kafka:/kafka/kafka-logs
         depends_on:
             - "zookeeper"
+            
     db:
         image: mysql:5.7
         restart: always
@@ -49,6 +50,7 @@ services:
         volumes:
             - my-db:/var/lib/mysql
         # Names our volume
+
     nginx:
         image: nginx:latest
          # Connects the conf file of the container to the conf file in our folder 
@@ -80,6 +82,7 @@ services:
         volumes:
             - /home/azureuser/config/receiver:/config
             - /home/azureuser/logs:/logs
+
     storage:
         image: storage
         ports:
@@ -93,6 +96,7 @@ services:
         volumes:
             - /home/azureuser/config/storage:/config
             - /home/azureuser/logs:/logs
+
     processing:
         image: processing
         ports:
@@ -106,7 +110,7 @@ services:
         volumes:
             - /home/azureuser/config/processing:/config
             - /home/azureuser/logs:/logs
-            - processing-db: /data
+        #    - processing-db: /data
     audit:
         image: audit
         ports:
